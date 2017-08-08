@@ -4,15 +4,34 @@
  * Module dependencies.
  */
 
+const mongoose = require('mongoose')
+// import environmental variables from our variables.env file
+require('dotenv').config({ path: 'variables.env' });
+
+//connect to mongodb
+mongoose.connect(process.env.DATABASE, { 
+  useMongoClient: true,
+  reconnectTries: Number.MAX_VALUE }
+)
+mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
+mongoose.connection.on('error', (err) => {
+  console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+});
+
+//Import all of our models
+console.log('About to import notes')
+require('../models/Note')
+
 var app = require('../app');
 var debug = require('debug')('smsnotes:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 /**
