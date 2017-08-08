@@ -3,13 +3,11 @@ const Note = mongoose.model('Note')
 var twilio = require('twilio');
 
 exports.showNotes = async(req, res) => {
-  console.log('Params', req.params)
   const notes = await Note.find({
     sms: {
       $eq: req.params.sms
     }
   })
-  console.log('Notes', notes)
   // res.json(notes)
   res.render('notes', {
     notes,
@@ -18,7 +16,6 @@ exports.showNotes = async(req, res) => {
 }
 
 exports.addNote = async(req, res) => {
-  console.log(req.body)
   const note = await new Note({
     sms: req.body.From,
     note: req.body.Body
@@ -36,7 +33,6 @@ exports.deleteNote = async(req, res) => {
       console.log('Error Removing!', err)
       return
     } else {
-      console.log('Removing:', result)
       res.json(result)
     }
   })
