@@ -13,4 +13,5 @@ router.get('/', function (req, res, next) {
 router.get('/sms/:sms', noteController.showNotes)
 
 router.post('/api/addnote', noteController.addNote)
+router.delete('/api/note/:id/delete', noteController.deleteNote)
 module.exports = router;

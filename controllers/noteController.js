@@ -29,3 +29,15 @@ exports.addNote = async(req, res) => {
   });
   res.end(twiml.toString());
 }
+
+exports.deleteNote = async(req, res) => {
+  const note = await Note.findByIdAndRemove(req.params.id, (err, result) => {
+    if (err) {
+      console.log('Error Removing!', err)
+      return
+    } else {
+      console.log('Removing:', result)
+      res.json(result)
+    }
+  })
+}

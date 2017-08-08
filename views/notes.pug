@@ -4,5 +4,8 @@ block content
   h1 Notes for #{smsnumber}
   ul
     each note in notes
-      li=note.note
+      li
+        form.delete(method='POST' action=`/api/note/${note._id}/delete`)
+          =note.note
+          button.delete__button(type='submit' name='delete' class='deleteButton' style='background: none; border: none;') ❌
   
