@@ -20,11 +20,13 @@ exports.addNote = async(req, res) => {
     sms: req.body.From,
     note: req.body.Body
   }).save()
-  twiml = new twilio.TwimlResponse()
+  // twiml = new twilio.MessagingResponse()
+  const blankResponse = '<Response></Response>'
   res.writeHead(200, {
     'Content-Type': 'text/xml'
   });
-  res.end(twiml.toString());
+  console.log('twiml:', blankResponse.toString())
+  res.end(blankResponse.toString());
 }
 
 exports.deleteNote = async(req, res) => {
