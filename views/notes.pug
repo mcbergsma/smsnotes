@@ -5,7 +5,7 @@ block content
   ul
     each note in notes
       li
-        form.delete(method='POST' action=`/api/note/${note._id}/delete`)
+        form.delete(method='POST' action=`/api/note/${note._id}/${note.MessageSid || ''}/delete`)
           =note.note
           button.delete__button(type='submit' name='delete' class='deleteButton' style='background: none; border: none;') ❌
   

@@ -15,6 +15,9 @@ const noteSchema = new mongoose.Schema({
   note: {
     type: String,
     trim: true
+  },
+  MessageSid: {
+    type: String
   }
 })
 

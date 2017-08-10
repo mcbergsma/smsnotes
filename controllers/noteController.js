@@ -18,7 +18,8 @@ exports.showNotes = async(req, res) => {
 exports.addNote = async(req, res) => {
   const note = await new Note({
     sms: req.body.From,
-    note: req.body.Body
+    note: req.body.Body,
+    MessageSid: req.body.MessageSid
   }).save()
   // twiml = new twilio.MessagingResponse()
   const blankResponse = '<Response></Response>'
@@ -30,7 +31,10 @@ exports.addNote = async(req, res) => {
 }
 
 exports.deleteNote = async(req, res) => {
-  const note = await Note.findByIdAndRemove(req.params.id, (err, result) => {
+  const note = await Note.findOneAndRemove({
+    '_id': req.params.id,
+    'MessageSid': req.params.msid
+  }, (err, result) => {
     if (err) {
       console.log('Error Removing!', err)
       return
@@ -39,3 +43,32 @@ exports.deleteNote = async(req, res) => {
     }
   })
 }
+
+exports.updatemsid = async(req, res) => {
+  console.log('In the update function')
+  const updateAll = await Note.update({
+    'MessageSid': { $exists: false }
+  }, {
+    'MessageSid': `strstr${Math.random()}`
+  }, {
+    'multi': true,
+    'upsert': true,
+  }, (err, result) => {
+    if(err) {
+      console.log('Error:', err)
+    } else {
+      console.log('Result:', result)
+    }
+  })
+  res.json(updateAll)
+}
+// exports.deleteNote = async(req, res) => {
+//   const note = await Note.findByIdAndRemove(req.params.id, (err, result) => {
+//     if (err) {
+//       console.log('Error Removing!', err)
+//       return
+//     } else {
+//       res.json(result)
+//     }
+//   })
+// }
