@@ -19,6 +19,22 @@ Built on Node 7.7.4. npm install should get it running. Defaults to port 4000.
 
 Created in response to the idea from Tiago Forte (@fortelabs) for hands-free note taking during audio books.
 
+## Deploy on NOW
+NOW makes it easy to launch a scalable site without having to manage a server, permissions, security etc. They offer a free version, but it does make your source code and logs publicly available.
+More info: https://zeit.co/now
+
+Install now globally
+
+  `npm install now -g`
+
+Customize variables.env and rename to variables.env.now
+
+Deploy to NOW by typing
+
+  `now`
+
+Follow the prompts to create an account and get your custom URL. The free version of now open-sources your code, so don't put anything security related in the code.
+
 ## Todo
 - Add additional security to view notes
 - Make notes more easily exported / sorted
